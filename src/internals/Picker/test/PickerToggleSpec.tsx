@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import sinon from 'sinon';
 import Toggle from '../PickerToggle';
 import CustomProvider from '../../../CustomProvider';
-import { getDOMNode, testStandardProps } from '@test/utils';
+import { testStandardProps } from '@test/utils';
 import { TypeAttributes } from '../../types';
 
 describe('<PickerToggle>', () => {
@@ -106,9 +106,9 @@ describe('<PickerToggle>', () => {
   });
 
   it('Should be disabled', () => {
-    const instance = getDOMNode(<Toggle disabled>Title</Toggle>);
-    assert.equal(instance.getAttribute('aria-disabled'), 'true');
-    assert.equal(instance.getAttribute('tabindex'), undefined);
+    const { container } = render(<Toggle disabled>Title</Toggle>);
+    expect(container.firstChild).to.have.attribute('aria-disabled', 'true');
+    expect(container.firstChild).not.to.have.attribute('tabindex', 'true');
   });
 
   it('Should render a custom caret', () => {
